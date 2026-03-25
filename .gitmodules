@@ -1,0 +1,3 @@
+[submodule "src/fra2mo_description"]
+	path = src/fra2mo_description
+	url = https://github.com/GV-ing/fra2mo_description
