@@ -1,3 +1,6 @@
 [submodule "src/fra2mo_description"]
 	path = src/fra2mo_description
 	url = https://github.com/GV-ing/fra2mo_description
+[submodule "src/fra2mo_driver"]
+	path = src/fra2mo_driver
+	url = https://github.com/GV-ing/fra2mo_driver
