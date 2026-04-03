@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libboost-system-dev \
     libboost-thread-dev \
     libboost-program-options-dev \
+    ros-humble-plotjuggler-ros \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-sensor-msgs \
     ros-humble-geometry-msgs \
@@ -35,6 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-tf2-geometry-msgs \
     ros-humble-xacro \
     ros-humble-realsense2-description \
+    ros-humble-realsense2-camera \
     ros-humble-joint-state-publisher \
     ros-humble-rclcpp \
     ros-humble-rclpy \
@@ -54,6 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-nav2-controller \
     ros-humble-nav2-waypoint-follower \
     ros-humble-slam-toolbox \
+    ros-humble-rplidar-ros \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
@@ -66,9 +69,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ==========================================
 RUN mkdir -p /root/ros2_ws/src
 COPY tmp_sources/ /root/ros2_ws/src/
-WORKDIR /root/ros2_ws/src
-# Clona rplidar_ros branch ros2
-RUN git clone --branch ros2 --depth 1 https://github.com/Slamtec/rplidar_ros.git
 WORKDIR /root/ros2_ws
 
 RUN /bin/bash -lc "source /opt/ros/${ROS_DISTRO}/setup.bash && colcon build --symlink-install"

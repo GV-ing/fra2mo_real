@@ -120,7 +120,7 @@ namespace roboclaw {
         }
         
         //twist_sub = nh.subscribe(std::msg:string("cmd_vel"), 10, &diffdrive_roscore::twist_callback, this);
-        twist_sub = create_subscription<geometry_msgs::msg::Twist>(namespace_ + "/cmd_vel", 10,std::bind(&diffdrive_roscore::twist_callback, this,std::placeholders::_1));
+        twist_sub = create_subscription<geometry_msgs::msg::Twist>(namespace_ + "/cmd_vel_smooth", 10,std::bind(&diffdrive_roscore::twist_callback, this,std::placeholders::_1));
 
     }
 

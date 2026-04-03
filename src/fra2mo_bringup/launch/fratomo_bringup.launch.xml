@@ -1,5 +1,7 @@
 <launch>
 
+    <arg name="use_slam" default="false"/>
+
     <!-- roboclaw driver -->
     <include file="$(find-pkg-share roboclaw_ros2)/launch/roboclaw_single.launch.xml"/>
 
@@ -19,7 +21,16 @@
         <param name="use_runge_kutta" value="true"/>
 
     </node>
-    
+
+    <!-- depth camera driver (Intel RealSense D435) -->
+    <include file="$(find-pkg-share realsense2_camera)/launch/rs_launch.py">
+        <arg name="enable_depth" value="true"/>
+        <arg name="enable_color" value="true"/>
+        <arg name="align_depth.enable" value="true"/>
+        <arg name="camera_namespace" value=""/>
+        <arg name="camera_name" value="camera"/>
+    </include>
+
     <!-- lidar driver -->
     <node name="rp_lidar" pkg="rplidar_ros" exec="rplidar_composition">
         <param name="serial_port" value='/dev/ttyUSB0'/>
@@ -34,13 +45,13 @@
     <include file="$(find-pkg-share fra2mo_description)/launch/fra2mo_bringup.launch.py"/>
 
     <!-- slam -->
-    <include file="$(find-pkg-share slam_toolbox)/launch/online_async_launch.py">
+    <include if="$(var use_slam)" file="$(find-pkg-share slam_toolbox)/launch/online_async_launch.py">
         <arg name="slam_params_file" value="$(find-pkg-share fra2mo_bringup)/config/copy_mapper_params_online_async.yaml"/>
         <arg name="use_sim_time" value="false"/>
     </include>
 
     <!-- nav2 -->
-    <include file="$(find-pkg-share fra2mo_bringup)/launch/fra2mo_nav2.launch.py"/>
+    <include unless="$(var use_slam)" file="$(find-pkg-share fra2mo_bringup)/launch/fra2mo_nav2.launch.py"/>
     
 
 </launch>
